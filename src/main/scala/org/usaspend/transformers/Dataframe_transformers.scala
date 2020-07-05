@@ -2,10 +2,8 @@ package org.usaspend.transformers
 
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql._
+//import org.apache.spark.sql._
 import org.usaspend.root.SparkInitializer._
-
-import org.usaspend.root
 class Dataframe_transformers {
   import spark.implicits._
 

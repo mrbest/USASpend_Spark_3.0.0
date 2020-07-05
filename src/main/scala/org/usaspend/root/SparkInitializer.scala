@@ -1,9 +1,10 @@
 package org.usaspend.root
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import java.text.NumberFormat
+
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.usaspend.execution.ArchiveReader
-import org.usaspend.transformers.Dataframe_transformers
-import org.usaspend.transformers.Utilities
 
 
 object SparkInitializer  {
@@ -11,12 +12,12 @@ object SparkInitializer  {
 
   import org.apache.spark.sql.functions._
 
-  val spark = SparkSession.builder.
+  val spark: SparkSession = SparkSession.builder.
     master("local[*]").
     //config("spark.driver.host", "127.0.0.1").
     config("spark.executor.memory", "48g").
     config("spark.driver.memory", "48g").
-    config("spark.memory.offHeap.enabled",true).
+    config("spark.memory.offHeap.enabled",value = true).
     config("spark.memory.offHeap.size","32g").
     appName("USA_Spend_GWCM").
     getOrCreate()
@@ -24,7 +25,7 @@ object SparkInitializer  {
   import spark.implicits._
   spark.sparkContext.setLogLevel("ERROR")
 
-  val formatter = java.text.NumberFormat.getCurrencyInstance
+  val formatter: NumberFormat = java.text.NumberFormat.getCurrencyInstance
   //UDF Definition
   def toCurrencyFun(dbl: Double):Option[String] = {
     val s = Option(dbl).getOrElse(return None)
@@ -32,7 +33,7 @@ object SparkInitializer  {
   }
 
 
-  val toCurrency = udf[Option[String], Double](toCurrencyFun)
+  val toCurrency: UserDefinedFunction = udf[Option[String], Double](toCurrencyFun)
 
 
   def main(args: Array[String]) {
