@@ -68,7 +68,8 @@ class ArchiveReader {
       $"recipient_name",
       $"contract_transaction_unique_key",
       $"action_date",
-      $"funding_agency_name")
+      $"funding_agency_name",
+      $"awarding_agency_name")
 
     //create the unique_contract_id for all awards
     val usaspend_awards = usaspend_g.

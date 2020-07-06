@@ -5,6 +5,7 @@ import java.text.NumberFormat
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.usaspend.execution.ArchiveReader
+import org.usaspend.transformers._
 
 
 object SparkInitializer  {
@@ -42,7 +43,7 @@ object SparkInitializer  {
     val archive = archive_reader.archive_reader()//.cache()
     archive.select($"v2_level_1_category").distinct().show(false)
 
-/*
+
     val transformer = new Dataframe_transformers()
     // 3.2.1 Compensation and Benefits
     // Summary: Update level_2_category to “Compensation and Benefits” for all rows that have psc code “R431” and naics code “923130”
@@ -197,9 +198,9 @@ object SparkInitializer  {
     val exclusions_marker_list = util.get_df_keys(l1_exclusion_level_blanker_df)
     val exclusions_marker_complement = util.get_complement_df(exclusions_marker_list, excluded_Other_Non_S_P_final)
     val final_df = l1_exclusion_level_blanker_df.unionByName(exclusions_marker_complement).cache()
-*/
+
     //excluded_Other_Non_S_P_final.write.save("/Users/destiny/Documents/DockerStarts/Zeppelin_Docker_Share/sources/USASPENDFY19/USASpendGWCMFY19_from_app.parquet_mini")
-    archive.coalesce(1).write.option("header", "true").option("sep", ",").csv("/Users/destiny/Documents/DockerStarts/Zeppelin_Docker_Share/sources/USASPENDFY19/usaspend_award_and_IDC_spend_mini.tsv")
+    final_df.coalesce(1).write.option("header", "true").option("sep", "\t").csv("/Users/destiny/Documents/DockerStarts/Zeppelin_Docker_Share/sources/USASPENDFY19/USASpendFY19GWCMApplied")
   }
 
 }
