@@ -9,6 +9,8 @@ class ArchiveReader {
 
   def archive_reader(): DataFrame = {
     import spark.implicits._
+
+    //TODO : Write function that reads all files in a given directory and then loops through them build the archive
     val usaspend1 = spark.read.
       option("header", "true").
       option("inferSchema", "true").
@@ -61,9 +63,6 @@ class ArchiveReader {
       $"product_or_service_code",
       $"naics_code",
       $"award_description",
-      //$"v2_level_1_category",
-      //$"v2_level_2_category",
-      //$"v2_level_3_category",
       $"federal_action_obligation",
       $"recipient_name",
       $"contract_transaction_unique_key",
@@ -98,8 +97,5 @@ class ArchiveReader {
 
     gwcm_w_taxonomy1
   }
-
-
-
 
 }

@@ -4,10 +4,7 @@ import java.util.Calendar
 
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
-//import org.apache.spark.sql._
 import org.usaspend.root.SparkInitializer._
-//import org.usaspend.root
-
 
 class Utilities {
 
@@ -46,12 +43,9 @@ class Utilities {
   }
 
 
-
-
   def get_complement_df(transaction_keylist: List[Any], source_df:  DataFrame): DataFrame =
   {
     var start_time = Calendar.getInstance()
-
 
     var return_df = source_df.
       filter($"contract_transaction_unique_key".isin(transaction_keylist:_*) === false)

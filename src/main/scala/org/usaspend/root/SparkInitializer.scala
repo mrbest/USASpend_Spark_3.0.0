@@ -9,13 +9,11 @@ import org.usaspend.transformers._
 
 
 object SparkInitializer  {
-  //import scala.util.Failure
 
   import org.apache.spark.sql.functions._
 
   val spark: SparkSession = SparkSession.builder.
     master("local[*]").
-    //config("spark.driver.host", "127.0.0.1").
     config("spark.executor.memory", "48g").
     config("spark.driver.memory", "48g").
     config("spark.memory.offHeap.enabled",value = true).
