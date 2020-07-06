@@ -13,5 +13,5 @@ SparkInitializer.scala provides:
      the GWCM contract inventory and joins it with the GWCM Taxonomy file.
   b) USASpend_Spark_3.0.0/src/main/scala/org/usaspend/transformers/Dataframe_transformers.scala
     Applies non-standard modifications and exclusions to the USA Spend archive that has been joined to the contract inventory and taxonomy 
-  c
+  
 
